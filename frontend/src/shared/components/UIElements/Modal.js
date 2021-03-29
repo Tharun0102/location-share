@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 import BackDrop from './BackDrop';
-import Map from './Map';
+
 
 import './styles/Modal.css';
 
@@ -12,10 +12,8 @@ const ModalOverlay = (props) => {
       <h2>{props.header}</h2>
     </header>
     <form onSubmit={props.onSubmit ? props.onSubmit : (event) => event.preventDefault()}>
-      <h2>Form start</h2>
       <div className={`modal__content ${props.contentClass}`}>
         {props.children}
-        <Map />
       </div>
       <footer className={`modal__footer ${props.footerClass}`}>
         {props.footer}

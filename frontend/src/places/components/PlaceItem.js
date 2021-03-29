@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '../../shared/components/UIElements/Card';
+import Map from '../../shared/components/UIElements/Map';
 import Modal from '../../shared/components/UIElements/Modal';
+
 
 import './styles/PlaceItem.css';
 
@@ -11,9 +13,13 @@ const PlaceItem = (props) => {
 
   const openMapHandler = () => setShowMap(true);
   const closeMapHandler = () => setShowMap(false);
-  const deleteHandler = () => setDeleteModal(true);
+  const openDeleteModal = () => setDeleteModal(true);
   const closeDeleteModal = () => setDeleteModal(false);
 
+  const deleteHandler = () => {
+    console.log("delete");
+    closeDeleteModal();
+  }
   return (
     <React.Fragment>
       {/* view on map */}
@@ -27,10 +33,12 @@ const PlaceItem = (props) => {
       >
         <div className="map-container">
           <h2>The Map</h2>
+          <Map />
         </div>
       </Modal>
       {/* delete */}
       <Modal
+        className="delete-modal"
         show={deleteModal}
         onCancel={closeDeleteModal}
         header={<header>Are you sure you want to delete?</header>}
@@ -43,6 +51,7 @@ const PlaceItem = (props) => {
           </React.Fragment>
         }
       >
+        <p>You cannot undo this operation</p>
       </Modal>
       <li className="place-item">
         <Card className="place-item__content">
@@ -57,7 +66,7 @@ const PlaceItem = (props) => {
           <div className="place-item__actions">
             <button className="button" onClick={openMapHandler}>VIEW ON MAP</button>
             <Link to={`/places/${props.id}`}><button className="button">EDIT</button></Link>
-            <button className="button">DELETE</button>
+            <button className="button" onClick={openDeleteModal}>DELETE</button>
           </div>
         </Card>
       </li >

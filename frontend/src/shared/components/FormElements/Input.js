@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { nameValidation } from '../../util/validation';
+import { emailValidation, nameValidation } from '../../util/validation';
 
 import './Input.css';
 
@@ -14,7 +14,7 @@ const Input = (props) => {
 
   const onChangeHandler = (event) => {
     const value = event.target.value;
-    const errorMsg = nameValidation(props.label, value, 3);
+    const errorMsg = (props.type === 'text') ? nameValidation(props.label, value, 3) : emailValidation(value);
     console.log(errorMsg);
     setInputState({
       ...inputState,
@@ -33,6 +33,7 @@ const Input = (props) => {
 
   const element = (props.element === 'input')
     ? <input
+      // minLength={props.minLength === undefined ? 0 : props.minLength}
       id={props.id}
       type={props.type}
       placeholder={props.placeholder}

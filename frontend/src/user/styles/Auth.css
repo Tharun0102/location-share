@@ -1,0 +1,22 @@
+.auth {
+    position: relative;
+    list-style: none;
+    margin: 0 auto;
+    padding: 1rem;
+    width: 40%;
+    max-width: 40rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 6px;
+    background: white;
+  }
+  .auth h2{
+    text-align: center;
+    color: red;
+  }
+  .auth button{
+    display: block;
+    margin:1rem auto;
+    padding: .2rem;
+    margin-bottom: 0;
+  }
+  
