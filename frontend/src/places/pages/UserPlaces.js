@@ -8,7 +8,7 @@ const DUMMY_PLACES = [
     id: '1',
     name: "piler",
     description: "pileru town",
-    image: "",
+    image: "https://lh5.googleusercontent.com/p/AF1QipNATUhrSMxLfATjZofh4El8Mkgtd1jy2X-bf0uH=w426-h240-k-no",
     address: "20 w ,AP,IND",
     coordinates: { lat: 20, long: 30 },
     creatorId: "u1"

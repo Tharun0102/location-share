@@ -1,19 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {CSSTransition} from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import BackDrop from './BackDrop';
+import Map from './Map';
 
 import './styles/Modal.css';
 
 const ModalOverlay = (props) => {
-  const content= <div className={`modal ${props.className}`} style={props.style}>
+  const content = <div className={`modal ${props.className}`} style={props.style}>
     <header className={`modal__header ${props.headerClass}`}>
       <h2>{props.header}</h2>
     </header>
-    <form onSubmit={props.onSubmit?props.onSubmit:(event)=>event.preventDefault()}>
+    <form onSubmit={props.onSubmit ? props.onSubmit : (event) => event.preventDefault()}>
+      <h2>Form start</h2>
       <div className={`modal__content ${props.contentClass}`}>
-        <h2>Hii</h2>
         {props.children}
+        <Map />
       </div>
       <footer className={`modal__footer ${props.footerClass}`}>
         {props.footer}
@@ -26,14 +28,14 @@ const ModalOverlay = (props) => {
 const Modal = (props) => {
   return (
     <React.Fragment>
-      {props.show && <BackDrop onClick={props.onCancel}/>}
-      <CSSTransition 
-        in={props.show} 
+      {props.show && <BackDrop onClick={props.onCancel} />}
+      <CSSTransition
+        in={props.show}
         timeout={200}
         mountOnEnter
         unmountOnExit
       >
-        <ModalOverlay {...props}/>
+        <ModalOverlay {...props} />
       </CSSTransition>
     </React.Fragment>
   );

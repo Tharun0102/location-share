@@ -14,6 +14,18 @@ const Users = () => {
             id: "2",
             image: "./my1[435].jpg",
             places: 5
+        },
+        {
+            name: "Tharun3",
+            id: "3",
+            image: "./my1[435].jpg",
+            places: 5
+        },
+        {
+            name: "Tharun4",
+            id: "4",
+            image: "./my1[435].jpg",
+            places: 5
         }
     ];
     return (
