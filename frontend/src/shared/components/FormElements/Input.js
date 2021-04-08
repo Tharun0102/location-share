@@ -14,14 +14,14 @@ const Input = (props) => {
 
   const onChangeHandler = (event) => {
     const value = event.target.value;
-    const errorMsg = (props.type === 'text') ? nameValidation(props.label, value, 3) : emailValidation(value);
-    console.log(errorMsg);
+    const errorMsg = (props.type === 'text' || props.type === 'password') ? nameValidation(props.label, value, 6) : emailValidation(value);
     setInputState({
       ...inputState,
       value,
       isValid: errorMsg === null,
       errorMessage: errorMsg
     });
+    props.onChange(inputState.isValid);
   }
 
   const touchHandler = () => {

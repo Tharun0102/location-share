@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
 import Users from './user/pages/Users';
 import NewPlace from './places/pages/NewPlace';
@@ -12,7 +12,8 @@ import Auth from './user/pages/Auth';
 import { AuthContext } from './shared/context/Auth-context';
 
 function App() {
-  const [IsLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const auth = useContext(AuthContext);
 
   const login = useCallback(() => {
     setIsLoggedIn(true);
@@ -22,26 +23,43 @@ function App() {
     setIsLoggedIn(false);
   }, []);
 
+  let routes;
+  if (auth.isLoggedIn) {
+    routes = (<Switch>
+      <Route path="/" exact>
+        <Users />
+      </Route>
+      <Route path="/:userId/places" exact>
+        <UserPlaces />
+      </Route>
+      <Route path="/places/new" exact>
+        <NewPlace />
+      </Route>
+      <Route path={`/places/:placeId`}>
+        <UpdatePlace />
+      </Route>
+      <Redirect to="/" />
+    </Switch>);
+  } else {
+    routes = (<Switch>
+      <Route path="/" exact>
+        <Users />
+      </Route>
+      <Route path="/:userId/places" exact>
+        <UserPlaces />
+      </Route>
+      <Route path="/auth" component={Auth} />
+      <Redirect to="/auth" />
+    </Switch>);
+  }
+
   return (
-    <AuthContext.Provider value={{ IsLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
       <Router>
         <MainNavigation />
         <main>
           <Switch>
-            <Route path="/" exact>
-              <Users />
-            </Route>
-            <Route path="/places/new" exact>
-              <NewPlace />
-            </Route>
-            <Route path="/:userId/places" exact>
-              <UserPlaces />
-            </Route>
-            <Route path={`/places/:placeId`}>
-              <UpdatePlace />
-            </Route>
-            <Route path="/auth" component={Auth} />
-            <Redirect to="/" />
+            {routes}
           </Switch>
         </main>
       </Router>

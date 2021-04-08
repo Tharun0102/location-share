@@ -6,7 +6,7 @@ import './styles/NavLinks.css';
 
 const NavLinks = (props) => {
   const auth = useContext(AuthContext);
-
+  console.log("navlinks: ", auth);
   return (
     <ul className="nav-links">
       <li>
@@ -30,7 +30,13 @@ const NavLinks = (props) => {
           <NavLink to="/auth">LOGIN/SIGNUP</NavLink>
         </li>
       }
-    </ul>
+      {
+        auth.isLoggedIn &&
+        <li>
+          <button onClick={auth.logout}>LOGOUT</button>
+        </li>
+      }
+    </ul >
   );
 };
 

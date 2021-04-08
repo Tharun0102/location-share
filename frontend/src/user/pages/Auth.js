@@ -1,33 +1,59 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import Input from '../../shared/components/FormElements/Input';
+import { AuthContext } from '../../shared/context/Auth-context';
 
 import '../styles/Auth.css';
 
-const LoginHandler = (event) => {
-  event.preventDefault();
-}
-const SignupHandler = (event) => {
-  event.preventDefault();
-}
-const Auth = () => {
+const Auth = (props) => {
+  const auth = useContext(AuthContext);
+  const [isLogin, setIsLogin] = useState(true);
+  const [canSubmit, setCanSubmit] = useState(false);
+
+  const SubmitHandler = (event) => {
+    event.preventDefault();
+    if (!canSubmit) {
+
+    }
+    auth.login();
+    console.log(auth);
+  }
+
+  const SwitchHandler = (event) => {
+    event.preventDefault();
+    setIsLogin(prevState => !prevState);
+  }
+
+  const onChangeHandler = (isInputValid) => {
+    setCanSubmit((prevState) => (prevState || isInputValid));
+  }
+
   return (
     <div className="auth">
       <h2>Login/signup</h2>
       <form>
-        <Input
+        {!isLogin && <Input
           id="userid"
           element="input"
           type="text"
           label="userid"
-        />
+          onChange={onChangeHandler}
+        />}
         <Input
           id="email"
           element="input"
           type="email"
           label="E-mail"
+          onChange={onChangeHandler}
         />
-        <button onClick={LoginHandler}>Login</button>
-        <button onClick={SignupHandler}>Signup</button>
+        <Input
+          id="password"
+          element="input"
+          type="password"
+          label="password"
+          onChange={onChangeHandler}
+        />
+        <button onClick={SubmitHandler}>{isLogin ? "Login" : "Signup"}</button>
+        <button onClick={SwitchHandler}>Switch to {!isLogin ? "Login" : "Signup"}</button>
       </form>
     </div>
   );

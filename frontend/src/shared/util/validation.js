@@ -1,6 +1,5 @@
 
 const nameValidation = (fieldName, fieldValue, minLength) => {
-  console.log("fieldValue", fieldValue);
   if (fieldValue.trim().length === 0) {
     return `${fieldName} is required`;
   }
